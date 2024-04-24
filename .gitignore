@@ -1,0 +1,14 @@
+DS_Store
+
+/server/.venv
+/server/venv
+/server/.env
+/server/__pycache__
+
+/assistant_api/
+/venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
