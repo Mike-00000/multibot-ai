@@ -61,52 +61,72 @@ def test_endpoint():
     # Return the response as JSON
     return jsonify(test_response), 200
 
-@app.route("/api/user_input/<bot_id>", methods=['POST', 'GET'])
-def get_user_input(bot_id):
-    user_input = request.get_json()
+# @app.route("/api/user_input/<bot_id>", methods=['POST', 'GET'])
+# def get_user_input(bot_id):
+#     user_input = request.get_json()
 
-    if 'message' not in user_input:
-        return jsonify({"error": "Missing 'message' field"}), 400
+#     if 'message' not in user_input:
+#         return jsonify({"error": "Missing 'message' field"}), 400
     
-    if not user_input['message'].strip():
-        return jsonify({"error": "'message' should not be an empty string"}), 400
+#     if not user_input['message'].strip():
+#         return jsonify({"error": "'message' should not be an empty string"}), 400
     
-    message = user_input['message']
+#     message = user_input['message']
 
-    bot_data = bots_data.get(bot_id)
-    if not bot_data:
-        return jsonify({"error": "Bot not found"}), 404
+#     bot_data = bots_data.get(bot_id)
+#     if not bot_data:
+#         return jsonify({"error": "Bot not found"}), 404
     
-    assistant = bot_data["assistant"]
-    conversation = bot_data["conversation"]
-    result = start_assistant(message, assistant, conversation)
+#     assistant = bot_data["assistant"]
+#     conversation = bot_data["conversation"]
+#     result = start_assistant(message, assistant, conversation)
 
-    conversation.append({"role": "user", "content": message})
-    conversation.append({"role": "assistant", "content": result})
+#     conversation.append({"role": "user", "content": message})
+#     conversation.append({"role": "assistant", "content": result})
 
-    return jsonify({"message": result, "user_input": message})
+#     return jsonify({"message": result, "user_input": message})
+
+@app.route("/api/user_input", methods=['POST', 'GET'])
+def get_user_input():
+  user_input = request.get_json()
+
+  if 'message' not in user_input:
+    return jsonify({"error": "Missing 'message' field"}), 400
+  
+  if not user_input['message'].strip():
+    return jsonify({"error": "'message' should not be an empty string"}), 400
+  
+  message = user_input['message']
+
+  # Use the single bot instance
+  assistant = get_assistant()  # Assuming a function to retrieve single assistant
+  conversation = get_conversation()  # Assuming a function to retrieve single conversation history
+
+  result = start_assistant(message, assistant, conversation)
+
+  conversation.append({"role": "user", "content": message})
+  conversation.append({"role": "assistant", "content": result})
+
+  return jsonify({"message": result, "user_input": message})
 
 
-@app.route('/api/conversation_history/<bot_id>', methods=['GET'])
-def get_conversation_history(bot_id):
 
-    bot_data = bots_data.get(bot_id)
-    if not bot_data:
-        return jsonify({"error": "Bot not found"}), 404
-    
-    conversation = bot_data["conversation"]
+@app.route('/api/conversation_history', methods=['GET'])
+def get_conversation_history():
+  conversation = get_conversation()  # Assuming a function to retrieve single conversation history
 
-    start = int(request.args.get('start', 0))
-    end = int(request.args.get('end', len(conversation)))
+  start = int(request.args.get('start', 0))
+  end = int(request.args.get('end', len(conversation)))
 
-    if start < 0:
-        start = 0
-    if end > len(conversation):
-        end = len(conversation)
+  if start < 0:
+    start = 0
+  if end > len(conversation):
+    end = len(conversation)
 
-    history_part = conversation[start:end]
+  history_part = conversation[start:end]
 
-    return jsonify(history_part)
+  return jsonify(history_part)
+
 
 
 @app.route('/api/add_message/<bot_id>', methods=['POST'])
