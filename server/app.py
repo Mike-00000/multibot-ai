@@ -1,28 +1,32 @@
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
+import datetime
 from prompts import *
 from chatbot import *
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client as TwilioClient
-import anthropic
+from openai import OpenAI
 import os
 
 load_dotenv()
 app = Flask(__name__)
 CORS(app)
-# client = OpenAI(api_key=openai_api_key)
-# account_sid = twilio_account_sid
-# auth_token = twilio_auth_token
-# client_twilio = TwilioClient(account_sid, auth_token)
+
+client = OpenAI(api_key=openai_api_key)
+account_sid = twilio_account_sid
+auth_token = twilio_auth_token
+client_twilio = TwilioClient(account_sid, auth_token)
+
 
 def create_new_assistant(bot_name):
-    client = anthropic.Client(anthropic.CONST)
-    new_assistant = client.create_instruction_following_assistant(
+    new_assistant = client.beta.assistants.create(
         name=bot_name,
-        instructions="Vous êtes un assistant conversationnel personnel.",
-        model="claude-v1"
+        instructions="You are a personal chat assistant.",
+        model="gpt-3.5-turbo-1106"
     )
     return new_assistant
+
+
 
 bots_data = {
     "math": {
@@ -46,6 +50,16 @@ def get_assistant(bot_id):
 def get_conversation(bot_id):
     return conversation 
 
+@app.route("/api/user_input/test", methods=['POST', 'GET'])
+def test_endpoint():
+    # Define a simple test response
+    test_response = {
+        "message": "Test endpoint successful",
+        "timestamp": datetime.datetime.now().isoformat()
+    }
+
+    # Return the response as JSON
+    return jsonify(test_response), 200
 
 @app.route("/api/user_input/<bot_id>", methods=['POST', 'GET'])
 def get_user_input(bot_id):
@@ -99,7 +113,7 @@ def get_conversation_history(bot_id):
 def add_message(bot_id):
     data = request.get_json()
     message = data.get('message')
-
+    
     if message:
         conversation.append(message)
         return jsonify({"message": "Message ajouté avec succès."})

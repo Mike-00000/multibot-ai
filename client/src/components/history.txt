@@ -1,0 +1,91 @@
+# ChatWindow.js - about history
+// const [history, setHistory] = useState([]);
+# useEffect(() => {
+#       // console.log("Log from useEffect. useEffect triggered with start:", start, "end:", end);
+#       // const loadInitialHistory = async () => {
+#       //   let initialHistory = [];
+#       //   const cachedData = await localForage.getItem('chatHistory');
+        
+#       //   if (cachedData) {
+#       //     const currentTime = new Date().getTime();
+#       //     if (currentTime - cachedData.timestamp <= cachedData.expiration) {
+#       //       initialHistory = cachedData.data;
+#       //     }
+#       //   }
+    
+#       //   if (initialHistory.length === 0) {
+#       //     // Charger depuis le serveur si le cache est vide ou expiré
+#       //     const response = await axios.get(`/api/conversation_history?start=${start}&end=${end}`);
+#       //     if (response.status === 200) {
+#       //       initialHistory = response.data;
+    
+#       //       // Mise à jour du cache
+#       //       const cacheData = {
+#       //         data: initialHistory,
+#       //         timestamp: new Date().getTime(),
+#       //         expiration: 3600 * 1000,
+#       //       };
+#       //       localForage.setItem('chatHistory', cacheData);
+#       //     }
+#       //   }
+    
+#       //   // Mise à jour de l'état global avec l'historique initial
+#       //   initialHistory.forEach(message => addMessage(message));
+#       // };
+    
+#       // loadInitialHistory();
+#     }, [start, end, addMessage]); 
+
+
+    # // const loadNextPage = async () => {
+    # //   console.log("Loading next page of messages");
+    # //   // Calculer les indices de début et de fin pour la prochaine page
+    # //   const newStart = end + 1;
+    # //   const newEnd = end + 10;
+    
+    # //   // Envoyer une requête au serveur pour obtenir la prochaine page d'historique
+    # //   const response = await axios.get(`/api/conversation_history?start=${newStart}&end=${newEnd}`);
+    # //   console.log("Log from loadNextPage. Received history from server:", response.data);
+
+    
+    # //   // Traiter la réponse du serveur
+    # //   if (response.status === 200) {
+    # //     // Mettre à jour l'état de l'application avec les nouveaux messages
+    # //     const newMessages = response.data;
+    # //     setStart(newStart);
+    # //     setEnd(newEnd);
+
+    # //     // Ajouter les nouveaux messages à l'état global
+    # //     newMessages.forEach(message => addMessage(message));
+    # //   } else {
+    # //     console.error('Error loading next page:', response.statusText);
+    # //   }
+    # // };
+    
+    # // const handlePreviousPageClick = () => {
+    # //   if (start > 0) {
+    # //     setStart(start - 10);
+    # //     setEnd(end - 10);
+    # //     loadNextPage(); 
+    # //   }
+    # // };
+    
+    # // const handleNextPageClick = () => {
+    # //   if (end < history.length) {
+    # //     setStart(start + 10);
+    # //     setEnd(end + 10);
+    # //     loadNextPage(); 
+    # //   }
+    # // };
+
+
+    #         {/* <Button
+    #       variant="outlined" onClick={handlePreviousPageClick}
+    #     >
+    #       Page précédente
+    #     </Button>
+    #     <Button
+    #       variant="outlined" onClick={handleNextPageClick}
+    #     >
+    #       Page suivante
+    #     </Button> */}

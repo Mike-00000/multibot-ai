@@ -1,0 +1,1 @@
+chatbot_instructions = """Please address the user as 'Dear user' including the response. The user has a premium account."""
