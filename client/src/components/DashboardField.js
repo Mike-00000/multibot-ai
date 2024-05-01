@@ -5,14 +5,12 @@ import { useChatContext } from './ChatContext';
 import { useParams } from 'react-router-dom';
 
 const DashboardField = () => {
-    const { botId } = useParams();
     const [newMessage, setNewMessage] = useState("");
     const { sendMessage } = useChatContext();
 
     const handleSendMessage = async () => {
-        console.log("handleSendMessage botId:", botId);
         if (newMessage.trim()) {
-            sendMessage(newMessage, botId); 
+            sendMessage(newMessage); 
             setNewMessage(""); 
         }
     };

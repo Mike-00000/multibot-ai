@@ -25,12 +25,11 @@ export const ChatProvider = ({ children }) => {
         });
     };
 
-    const sendMessage = async (message, botId) => {
-        console.log("sendMessage botId:", botId);
+    const sendMessage = async (message) => {
         addMessage({ content: message, role: 'user' });
       
         try {
-          const response = await axios.post(`/api/user_input/${botId}`, { message });
+          const response = await axios.post(`/api/user_input`, { message });
       
           if (response.status === 200) {
             addMessage({ content: response.data.message, role: 'assistant' });
