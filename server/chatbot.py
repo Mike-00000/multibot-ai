@@ -67,7 +67,7 @@ def start_assistant(user_input):
 
   run = client.beta.threads.runs.create(
       thread_id=get_thread_id(),
-      assistant_id=YOUR_SINGLE_ASSISTANT_ID,  # Replace with your single assistant ID
+      assistant_id=asst_ebPdWTSkDezIDh61de0wbyWC,  # Replace with your single assistant ID
       instructions=chatbot_instructions,
   )
 

@@ -6,34 +6,27 @@ import { useChatContext } from './ChatContext';
 import { useParams } from 'react-router-dom';
 
 const ChatWindow = ({}) => {
-    const { botId } = useParams();
-    console.log("ChatWindow for bot with ID:", botId);
+    // const { botId } = useParams();
+    // console.log("ChatWindow for bot with ID:", botId);
     const [message, setMessage] = useState('');
-    const [start, setStart] = useState(0); 
-    const [end, setEnd] = useState(10);  
+    // const [start, setStart] = useState(0); 
+    // const [end, setEnd] = useState(10);  
 
     const { chatState, addMessage, sendMessage } = useChatContext();
     const history = chatState.messages;
     const theme = useTheme();
 
-    console.log(`ChatWindow for bot with ID: ${botId}`);
-    console.log(botId)
-
     const handleSendMessage = () => {
-      sendMessage(message, botId);
+      sendMessage(message);
       setMessage('');
     };
 
-    useEffect(() => {
-      console.log(`ChatWindow for bot with ID: ${botId}`);
-      if (botId === 'math') {
-        
-      } else if (botId === 'science') {
-        
-      } else if (botId === 'music') {
-        
-      }
-    }, [botId]);
+    // useEffect(() => {
+    //   if (isAtBottomOfChatHistory()) {
+    //     loadMoreMessages();
+    //   }
+    // }, [chatState]);
+    
 
     const UserItem = ({ message, theme }) => {
       return (
@@ -71,13 +64,13 @@ const ChatWindow = ({}) => {
     
     
 
-    useEffect(() => {
+    // useEffect(() => {
 
-    }, [botId, start, end, addMessage]);
+    // }, [botId, start, end, addMessage]);
     
-    const handleTestMessage = () => {
-      addMessage({ content: "Message test", role: 'user' });
-    };
+    // const handleTestMessage = () => {
+    //   addMessage({ content: "Message test", role: 'user' });
+    // };
 
     return (
       <Box>
