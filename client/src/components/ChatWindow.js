@@ -20,6 +20,7 @@ const ChatWindow = ({}) => {
       sendMessage(message);
       setMessage('');
     };
+    
 
     // useEffect(() => {
     //   if (isAtBottomOfChatHistory()) {

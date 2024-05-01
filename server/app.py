@@ -44,22 +44,12 @@ bots_data = {
 }
 
 
-def get_assistant(bot_id):
+def get_assistant():
+    bot_id = "asst_ebPdWTSkDezIDh61de0wbyWC"
     return global_assistant 
 
-def get_conversation(bot_id):
+def get_conversation():
     return conversation 
-
-@app.route("/api/user_input/test", methods=['POST', 'GET'])
-def test_endpoint():
-    # Define a simple test response
-    test_response = {
-        "message": "Test endpoint successful",
-        "timestamp": datetime.datetime.now().isoformat()
-    }
-
-    # Return the response as JSON
-    return jsonify(test_response), 200
 
 # @app.route("/api/user_input/<bot_id>", methods=['POST', 'GET'])
 # def get_user_input(bot_id):
